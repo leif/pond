@@ -915,9 +915,11 @@ func (c *cliClient) outboxSummary() (table cliTable) {
 			continue
 		}
 
+/*
 		if len(msg.message.Body) == 0 {
 			continue
 		}
+*/
 
 		if msg.cliId == invalidCliId {
 			msg.cliId = c.newCliId()

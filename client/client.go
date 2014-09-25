@@ -70,6 +70,7 @@ import (
 	"io/ioutil"
 	"net"
 	"os"
+	"os/exec"
 	"strconv"
 	"sync"
 	"time"
@@ -1416,3 +1417,15 @@ func (c *client) importTombFile(stateFile *disk.StateFile, keyHex, path string) 
 
 	return nil
 }
+
+func (c *client) receiveHook() {
+	if c.receiveHookCommand != "" {
+		cmd := exec.Command(c.receiveHookCommand)
+		go func() {
+			if err := cmd.Run(); err != nil {
+				c.log.Errorf("Failed to run receive hook command: %s", err.Error())
+			}
+		}()
+	}
+}
+

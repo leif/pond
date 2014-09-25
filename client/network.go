@@ -14,7 +14,6 @@ import (
 	"net"
 	"net/url"
 	"os"
-	"os/exec"
 	"strconv"
 	"strings"
 	"time"
@@ -466,14 +465,8 @@ NextCandidate:
 	c.ui.processFetch(inboxMsg)
 	c.save()
 
-	if c.receiveHookCommand != "" {
-		cmd := exec.Command(c.receiveHookCommand)
-		go func() {
-			if err := cmd.Run(); err != nil {
-				c.log.Errorf("Failed to run receive hook command: %s", err.Error())
-			}
-		}()
-	}
+	c.receiveHook()
+
 }
 
 func (c *client) processServerAnnounce(m NewMessage) {

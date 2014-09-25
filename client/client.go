@@ -1428,4 +1428,3 @@ func (c *client) receiveHook() {
 		}()
 	}
 }
-

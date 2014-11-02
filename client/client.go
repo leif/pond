@@ -217,6 +217,9 @@ type client struct {
 
 	// command to run upon receiving messages
 	receiveHookCommand string
+
+	// nextTransactionTime stores the absolute time of the next transaction
+	nextTransactionTime time.Time
 }
 
 // UI abstracts behaviour that is specific to a given interface (GUI or CLI).
